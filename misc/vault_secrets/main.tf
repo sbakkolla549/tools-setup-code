@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "terraform-d80"
+    bucket = "terraform-d82"
     key    = "vault-secrets/terraform.tfstate"
     region = "us-east-1"
 
@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "vault" {
-  address         = "http://vault-internal.rdevopsb81.online:8200"
+  address         = "http://vault-internal.sbakkolla.online:8200"
   token           = var.vault_token
   skip_tls_verify = true
 }
@@ -27,11 +27,11 @@ resource "vault_generic_secret" "frontend" {
 
   data_json = <<EOT
 {
-  "catalogue_url":   "http://catalogue-dev.rdevopsb81.online:8080/",
-  "cart_url":   "http://cart-dev.rdevopsb81.online:8080/",
-  "user_url":   "http://user-dev.rdevopsb81.online:8080/",
-  "shipping_url":   "http://shipping-dev.rdevopsb81.online:8080/",
-  "payment_url":   "http://payment-dev.rdevopsb81.online:8080/"
+  "catalogue_url":   "http://catalogue-dev.sbakkolla.online:8080/",
+  "cart_url":   "http://cart-dev.sbakkolla.online:8080/",
+  "user_url":   "http://user-dev.sbakkolla.online:8080/",
+  "shipping_url":   "http://shipping-dev.sbakkolla.online:8080/",
+  "payment_url":   "http://payment-dev.sbakkolla.online:8080/"
 }
 EOT
 }
@@ -42,10 +42,10 @@ resource "vault_generic_secret" "catalogue" {
   data_json = <<EOT
 {
   "MONGO": "true",
-  "MONGO_URL" : "mongodb://mongodb-dev.rdevopsb81.online:27017/catalogue",
+  "MONGO_URL" : "mongodb://mongodb-dev.sbakkolla.online:27017/catalogue",
   "DB_TYPE": "mongo",
   "APP_GIT_URL": "https://github.com/roboshop-devops-project-v3/catalogue",
-  "DB_HOST": "mongodb-dev.rdevopsb81.online",
+  "DB_HOST": "mongodb-dev.sbakkolla.online",
   "SCHEMA_FILE": "db/master-data.js"
 }
 EOT
@@ -57,8 +57,8 @@ resource "vault_generic_secret" "user" {
   data_json = <<EOT
 {
   "MONGO": "true",
-  "MONGO_URL" : "mongodb://mongodb-dev.rdevopsb81.online:27017/users",
-  "REDIS_URL" : "redis://redis-dev.rdevopsb81.online:6379"
+  "MONGO_URL" : "mongodb://mongodb-dev.sbakkolla.online:27017/users",
+  "REDIS_URL" : "redis://redis-dev.sbakkolla.online:6379"
 }
 EOT
 }
@@ -68,8 +68,8 @@ resource "vault_generic_secret" "cart" {
 
   data_json = <<EOT
 {
-  "REDIS_HOST": "redis-dev.rdevopsb81.online",
-  "CATALOGUE_HOST" : "catalogue-dev.rdevopsb81.online",
+  "REDIS_HOST": "redis-dev.sbakkolla.online",
+  "CATALOGUE_HOST" : "catalogue-dev.sbakkolla.online",
   "CATALOGUE_PORT" : "8080"
 }
 EOT
@@ -80,8 +80,8 @@ resource "vault_generic_secret" "shipping" {
 
   data_json = <<EOT
 {
-  "CART_ENDPOINT": "cart-dev.rdevopsb81.online:8080",
-  "DB_HOST" : "mysql-dev.rdevopsb81.online",
+  "CART_ENDPOINT": "cart-dev.sbakkolla.online:8080",
+  "DB_HOST" : "mysql-dev.sbakkolla.online",
   "mysql_root_password" : "RoboShop@1"
 }
 EOT
@@ -94,11 +94,11 @@ resource "vault_generic_secret" "payment" {
 
   data_json = <<EOT
 {
-  "CART_HOST" : "cart-dev.rdevopsb81.online",
+  "CART_HOST" : "cart-dev.sbakkolla.online",
   "CART_PORT" : "8080",
-  "USER_HOST" : "user-dev.rdevopsb81.online",
+  "USER_HOST" : "user-dev.sbakkolla.online",
   "USER_PORT" : "8080",
-  "AMQP_HOST" : "rabbitmq-dev.rdevopsb81.online",
+  "AMQP_HOST" : "rabbitmq-dev.sbakkolla.online",
   "AMQP_USER" : "roboshop",
   "AMQP_PASS" : "roboshop123"
 }
